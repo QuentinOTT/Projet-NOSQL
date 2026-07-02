@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: catalog_mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: adminpassword
+      MONGO_INITDB_DATABASE: product_catalog
+    volumes:
+      - mongo_data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d
+    networks:
+      - catalog_net
+
+  api:
+    build: ./api
+    container_name: catalog_api
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      MONGO_URI: mongodb://admin:adminpassword@mongodb:27017/product_catalog?authSource=admin
+    depends_on:
+      - mongodb
+    networks:
+      - catalog_net
+
+  frontend:
+    build: ./frontend
+    container_name: catalog_frontend
+    restart: always
+    ports:
+      - "8501:8501"
+    environment:
+      API_URL: http://api:8000
+    depends_on:
+      - api
+    networks:
+      - catalog_net
+
+volumes:
+  mongo_data:
+
+networks:
+  catalog_net:
+    driver: bridge
