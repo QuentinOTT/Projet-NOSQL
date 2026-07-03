@@ -10,6 +10,27 @@
 Application complète de gestion d'un catalogue produit multi-catégories, reposant sur une base MongoDB avec 5 collections interconnectées.  
 L'API REST expose **18 endpoints** couvrant recherche, agrégations, CRUD et statistiques. L'interface Streamlit permet d'interroger toutes ces données de façon visuelle.
 
+
+Objectif
+L'objectif est de permettre a une entreprise de centraliser ses produits, ses categories, ses fournisseurs, ses avis clients et certaines analyses metier via une base NoSQL MongoDB, une API FastAPI et une interface Streamlit.
+
+Pourquoi MongoDB / NoSQL ?
+MongoDB est un bon choix car les produits peuvent avoir des structures tres differentes selon leur categorie.
+Par exemple, un smartphone n'a pas les memes attributs qu'un vetement ou qu'un ordinateur.
+Une base NoSQL orientee documents permet donc de stocker des attributs flexibles sans imposer un schema relationnel rigide.
+""")
+    with col2:
+        st.markdown("""
+Collections principales
+products
+categories
+suppliers
+reviews
+users
+
+Probleme metier resolu
+Comment gerer un catalogue produit heterogene avec recherche, stock, avis, categories, fournisseurs et indicateurs metier dans une architecture simple, evolutive et adaptee au NoSQL ?
+""")
 ---
 
 ## 🗂️ Structure du projet
